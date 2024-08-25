@@ -10,7 +10,11 @@
 </head>
 
 <body>
-
+    @if ($request->session()->has("jwt"))
+    <?php
+    echo redirect()->route('feed');
+    ?>
+    @endif
     @if ($errors->has('error'))
     <div class="error-box">
         <h1>Error</h1>
