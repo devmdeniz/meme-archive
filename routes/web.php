@@ -17,3 +17,8 @@ Route::get("/feed", function (Request $request) {
         "role" => JWTDecode::decodeJWTPerm($request)
     ]);
 })->name("feed");
+
+Route::get("/logout", function (Request $request) {
+    $request->session()->flush();
+    return redirect()->route("loginUser");
+})->name("logout");
