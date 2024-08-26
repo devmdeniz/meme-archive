@@ -37,7 +37,7 @@ jobs:
     - name: Run PHP Script and Measure Performance
       run: |
         echo "Measuring PHP script performance..."
-        /usr/bin/time -v php artisan your-command 2>&1 | tee performance.log
+        /usr/bin/time -v php artisan serve 2>&1 | tee performance.log
 
     - name: Display Performance Results
       run: |
