@@ -1,0 +1,51 @@
+name: Laravel Performance Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  performance-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        extensions: mbstring, bcmath
+
+    - name: Install Composer Dependencies
+      run: composer install --no-interaction --prefer-dist --no-suggest
+
+    - name: Set up .env
+      run: cp .env.example .env
+
+    - name: Generate Application Key
+      run: php artisan key:generate
+
+    - name: Run Migrations
+      run: php artisan migrate --force
+
+    - name: Run PHP Script and Measure Performance
+      run: |
+        echo "Measuring PHP script performance..."
+        /usr/bin/time -v php artisan your-command 2>&1 | tee performance.log
+
+    - name: Display Performance Results
+      run: |
+        echo "Performance results:"
+        cat performance.log
+
+    - name: Upload Performance Log
+      uses: actions/upload-artifact@v3
+      with:
+        name: performance-log
+        path: performance.log
