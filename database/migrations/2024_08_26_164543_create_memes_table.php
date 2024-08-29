@@ -26,7 +26,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('keywords');
-            $table->string('imageURL');
+            $table->string('imageURL')->nullable();
             $table->integer("postType")->default(0);
             $table->timestamps();
         });

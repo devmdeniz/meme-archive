@@ -45,6 +45,8 @@ class PostSettings extends Controller
             $this->createMemeWithImageURL($title, $keywords, $imageURL,$number);
         } else if($number == 1) {
             $this->createMemeWithYoutubeVideoURL($title, $keywords, $imageURL,$number);
+        } else if($number == 3){
+            $this-> createMemeWithText($title,$keywords,$number);
         }
         return redirect()->route('feed')->with('message', 'Meme başarıyla eklendi!');
     }
@@ -66,6 +68,14 @@ class PostSettings extends Controller
             'title' => $title,
             'keywords' => $keywords,
             'imageURL' => $imageURL,
+            'postType' => $number
+        ]);
+    }
+
+    private function createMemeWithText($title,$keywords,$number){
+        DB::table('memes')->insert([
+            'title' => $title,
+            'keywords' => $keywords,
             'postType' => $number
         ]);
     }
