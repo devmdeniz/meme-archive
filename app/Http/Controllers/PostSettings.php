@@ -41,7 +41,7 @@ class PostSettings extends Controller
          * Showing styles is different
          */
 
-        if ($number == 0 || $number == 2) {
+        if ($number == 0 || $number == 2 || $number == 7) {
             $this->createMemeWithImageURL($title, $keywords, $imageURL,$number);
         } else if($number == 1) {
             $this->createMemeWithYoutubeVideoURL($title, $keywords, $imageURL,$number);

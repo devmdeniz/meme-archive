@@ -142,7 +142,7 @@
                         Meme
                         @if ($memeTypeGet == 0)
                             Image
-                        @elseif($memeTypeGet == 1)
+                        @elseif($memeTypeGet == 1 || $memeTypeGet == 7)
                             Video
                         @elseif($memeTypeGet == 2)
                             Gif

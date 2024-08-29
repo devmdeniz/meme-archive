@@ -89,6 +89,8 @@
                             <iframe class="card-img-top"
                                 src="https://www.youtube.com/embed/{{ $imageURL }}?si=2U6ryEf8iGCt7LY1"
                                 allowfullscreen></iframe>
+                        @elseif($memeType == 7)
+                        <video src="{{ $imageURL }}" class="card-img-top" autoplay muted loop></video>
                         @endif
                         <div class="card-body">
                             <h5 class="card-title">{{ $title }}</h5>
@@ -106,7 +108,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card mb-3">
-                            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWY3Z21rZTN3dGlrejhqcjBvdGZsZjloM3Q3NWhweTFudHQwNXhhaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IArfvsrvQt5JF4KPhR/giphy.webp" alt="">
+                            {{-- <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWY3Z21rZTN3dGlrejhqcjBvdGZsZjloM3Q3NWhweTFudHQwNXhhaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IArfvsrvQt5JF4KPhR/giphy.webp" alt=""> --}}
 {{-- Image --}}
                             <div class="card-body">
                                 <h5 class="card-title">Taytil</h5>
