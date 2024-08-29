@@ -63,6 +63,7 @@
         <div class="flex flex-col p-8">
             <div class="text-2xl font-bold  text-center text-[#374151] pb-6">Select Meme Type</div>
             <form class=" text-lg  text-center text-[#374151]" method="GET" action="{{ route("createMeme") }}" id="memeForm">
+                @csrf
                 <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                         MemeType
@@ -70,7 +71,7 @@
                     <div class="relative">
                         <select
                             class="block appearance-none w-auto bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-state">
+                            id="grid-state" name="memeType" onchange="submitForm()">
                             <option value="0">Image With URL</option>
                             <option value="1">Video With URL</option>
                             <option value="2">Gif With URL</option>
@@ -112,19 +113,6 @@
             <div class="md:flex md:items-center mb-6">
                 <div class="md:w-1/3">
                     <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                        Meme Type
-                    </label>
-                </div>
-                <div class="md:w-2/3">
-                    <select`
-                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                        id="inline-full-name" name="memeType" type="text">
-                        </select>
-                </div>
-            </div>
-            <div class="md:flex md:items-center mb-6">
-                <div class="md:w-1/3">
-                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
                         Meme Keywords
                     </label>
                 </div>
@@ -157,6 +145,14 @@
     </div>
 
 
+    <script>
+        <script>
+    function submitForm() {
+        document.getElementById('memeForm').submit();
+    }
+</script>
+
+    </script>
     <script>
         const keywords = [];
 
