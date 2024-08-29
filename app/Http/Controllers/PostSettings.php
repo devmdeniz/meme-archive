@@ -25,24 +25,33 @@ class PostSettings extends Controller
         ! */
     public function createMeme()
     {
+        /**
+         * Get Data from Request
+         */
         $number = $this->request->input("memeType");
         $title = $this->request->input("title");
         $keywords = $this->request->input("keywords");
         $imageURL = $this->request->input("imageURL");
-        
-        // Upload Image,Video,GIF with using URL
+
+        /**
+         * Upload Image,Video,GIF with using URL
+         * Numbers must be different but saving style is same
+         * Showing styles is different
+         */
+
         if ($number == 0 || $number == 1 || $number == 2) {
-            $this->createMemeWithImageURL($title, $keywords, $imageURL);
+            $this->createMemeWithImageURL($title, $keywords, $imageURL,$number);
         }
         return redirect()->route('feed')->with('message', 'Meme başarıyla eklendi!');
     }
 
-    private function createMemeWithImageURL($title, $keywords, $imageURL)
+    private function createMemeWithImageURL($title, $keywords, $imageURL,$number)
     {
         DB::table('memes')->insert([
             'title' => $title,
             'keywords' => $keywords,
-            'imageURL' => $imageURL
+            'imageURL' => $imageURL,
+            'postType' => $number
         ]);
     }
 
