@@ -18,19 +18,23 @@
     @include('templates.header')
     <div class="container mt-5">
         <div class="row">
-            {{-- @foreach ($memes as $meme) --}}
+            @foreach ($meme as $item)
             <div class="col-md-4">
                 <div class="card mb-3">
-                    <img src="https://i.kym-cdn.com/entries/icons/mobile/000/030/659/ben.jpg" class="card-img-top"
+                    <img src="{{ $item->imageURL }}" class="card-img-top"
                         alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Title</h5>
-                        <p class="card-text">Desc</p>
-                        <p class="card-text"><small class="text-muted">Create</small></p>
+                        <h5 class="card-title">{{ $item->title }}</h5>
+                        <p class="card-text">
+                            @foreach (explode(",",$item->keywords) as $keyword)
+                            <span class="badge bg-primary">{{ $keyword }}</span>
+                            @endforeach
+                        </p>
+                        <p class="card-text"><small class="text-muted">Date</small></p>
                     </div>
                 </div>
             </div>
-            {{-- @endforeach --}}
+            @endforeach
             <div class="col-md-4">
                 <div class="card mb-3">
                     <img src="https://i.kym-cdn.com/entries/icons/mobile/000/042/253/upper_decky_zynnies.jpg"

@@ -25,3 +25,9 @@ class PostSettings extends Controller
         ]);
         return redirect()->route('feed')->with('success', 'Meme başarıyla eklendi!');
     }
+    public static function showMeme()
+    {
+        $memes = DB::table("memes")->get();
+        return $memes->toArray();
+    }
+}
