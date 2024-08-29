@@ -6,6 +6,7 @@ use App\Models\UserSecurity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Firebase\JWT\JWT;
+use Illuminate\Support\Facades\Hash;
 
 class UserSecurityController extends Controller
 {
@@ -66,7 +67,7 @@ class UserSecurityController extends Controller
         $user = DB::table("users")->where("username", $username)->first();
 
         if ($user) {
-            if (hash("sha256", $password) == $user->password) {
+            if (Hash::check($password, $user->password)) {
                 return true;
             }
         }
