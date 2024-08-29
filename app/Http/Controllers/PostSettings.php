@@ -75,4 +75,10 @@ class PostSettings extends Controller
         $memes = DB::table("memes")->get()->reverse();
         return $memes->toArray();
     }
+
+    public static function getMemeTypes()
+    {
+        $memeTypes = DB::table("postTypes")->get();
+        return $memeTypes->toArray();
+    }
 }
