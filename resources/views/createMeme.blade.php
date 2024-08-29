@@ -62,7 +62,7 @@
     <div class="flex flex-col w-full md:w-1/2 xl:w-2/5 2xl:w-2/5 3xl:w-1/3 mx-auto p-8 md:p-10 2xl:p-12 3xl:p-14 bg-[#ffffff] rounded-2xl shadow-xl">
         <div class="flex flex-col p-8">
             <div class="text-2xl font-bold  text-center text-[#374151] pb-6">Select Meme Type</div>
-            <form class=" text-lg  text-center text-[#374151]">
+            <form class=" text-lg  text-center text-[#374151]" method="GET" action="{{ route("createMeme") }}" id="memeForm">
                 <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                         MemeType
