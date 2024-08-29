@@ -75,54 +75,70 @@
     <div class="container mt-5">
         <div class="row">
             @foreach ($meme as $item)
-            @php
-            $title = $item->title;
-            $keywords = $item->keywords;
-            $imageURL = $item->imageURL;
-            $memeType = $item->postType;
-            @endphp
+                @php
+                    $title = $item->title;
+                    $keywords = $item->keywords;
+                    $imageURL = $item->imageURL;
+                    $memeType = $item->postType;
+                @endphp
+                <div class="col-md-4">
+                    <div class="card mb-3">
+                        @if ($memeType == 0 || $memeType == 2)
+                            <img src="{{ $imageURL }}" class="card-img-top" alt="...">
+                        @elseif ($memeType == 1)
+                            <iframe class="card-img-top"
+                                src="https://www.youtube.com/embed/{{ $imageURL }}?si=2U6ryEf8iGCt7LY1"
+                                allowfullscreen></iframe>
+                        @endif
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $title }}</h5>
+                            <p class="card-text">
+                                @foreach (explode(',', $keywords) as $keyword)
+                                    <span class="badge bg-primary">{{ $keyword }}</span>
+                                @endforeach
+                            </p>
+                            <p class="card-text"><small class="text-muted">Date</small></p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            <div class="container mt-5">
+                <div class="row">
                     <div class="col-md-4">
                         <div class="card mb-3">
-                            @if ($memeType == 0)
-                            <img src="{{ $imageURL }}" class="card-img-top" alt="...">
-                            @elseif ($memeType == 1)
-                            <iframe class="card-img-top" src="https://www.youtube.com/embed/{{ $imageURL }}?si=2U6ryEf8iGCt7LY1"
-                            allowfullscreen></iframe>
-                            @endif
+                            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWY3Z21rZTN3dGlrejhqcjBvdGZsZjloM3Q3NWhweTFudHQwNXhhaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IArfvsrvQt5JF4KPhR/giphy.webp" alt="">
+{{-- Image --}}
                             <div class="card-body">
-                                <h5 class="card-title">{{ $title }}</h5>
+                                <h5 class="card-title">Taytil</h5>
                                 <p class="card-text">
-                                    @foreach (explode(',', $keywords) as $keyword)
-                                        <span class="badge bg-primary">{{ $keyword }}</span>
-                                    @endforeach
+                                    Desc
                                 </p>
                                 <p class="card-text"><small class="text-muted">Date</small></p>
                             </div>
                         </div>
                     </div>
-            @endforeach
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
 
 
-    <script>
-        function applyShakeEffect() {
-            var element = document.getElementById("alert");
-            element.classList.add("shake");
+        <script>
+            function applyShakeEffect() {
+                var element = document.getElementById("alert");
+                element.classList.add("shake");
 
-            setTimeout(function() {
-                element.classList.remove("shake");
-            }, 500);
-        }
+                setTimeout(function() {
+                    element.classList.remove("shake");
+                }, 500);
+            }
 
-        applyShakeEffect();
+            applyShakeEffect();
 
-        setInterval(applyShakeEffect, 5000);
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/js/bootstrap.js"
-        integrity="sha512-usm+JyA4pcZ0mPqWsJugUq63sbcD1jNUZhFwTDs5rb/9R8xApGaayJaY6BK3rPulS2p3adXTQXCWU68SVE4Epw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            setInterval(applyShakeEffect, 5000);
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/js/bootstrap.js"
+            integrity="sha512-usm+JyA4pcZ0mPqWsJugUq63sbcD1jNUZhFwTDs5rb/9R8xApGaayJaY6BK3rPulS2p3adXTQXCWU68SVE4Epw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>
