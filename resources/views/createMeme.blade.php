@@ -59,10 +59,12 @@
 
 <body>
     @include('templates.header')
-    <div class="flex flex-col w-full md:w-1/2 xl:w-2/5 2xl:w-2/5 3xl:w-1/3 mx-auto p-8 md:p-10 2xl:p-12 3xl:p-14 bg-[#ffffff] rounded-2xl shadow-xl">
+    <div
+        class="flex flex-col w-full md:w-1/2 xl:w-2/5 2xl:w-2/5 3xl:w-1/3 mx-auto p-8 md:p-10 2xl:p-12 3xl:p-14 bg-[#ffffff] rounded-2xl shadow-xl">
         <div class="flex flex-col p-8">
             <div class="text-2xl font-bold  text-center text-[#374151] pb-6">Select Meme Type</div>
-            <form class=" text-lg  text-center text-[#374151]" method="GET" action="{{ route("createMeme") }}" id="memeForm">
+            <form class=" text-lg  text-center text-[#374151]" method="GET" action="{{ route('createMeme') }}"
+                id="memeForm">
                 @csrf
                 <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
@@ -80,8 +82,7 @@
                             <option value="5">Video With Upload</option>
                             <option value="6">Gif With Upload</option>
                         </select>
-                        <div
-                            class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2 text-gray-700">
+                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2 text-gray-700">
                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                             </svg>
@@ -146,12 +147,9 @@
 
 
     <script>
-        <script>
-    function submitForm() {
-        document.getElementById('memeForm').submit();
-    }
-</script>
-
+        function submitForm() {
+            document.getElementById('memeForm').submit();
+        }
     </script>
     <script>
         const keywords = [];
