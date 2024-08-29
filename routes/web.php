@@ -28,9 +28,11 @@ Route::get("/logout", function (Request $request) {
 })->name("logout");
 
 Route::get("/CreateMeme", function (Request $request) {
+    $memeTypes = PostSettings::getMemeTypes();
     return view("createMeme")->with([
         "request" => $request,
-        "role" => JWTDecode::decodeJWTPerm($request)
+        "role" => JWTDecode::decodeJWTPerm($request),
+        "memeTypes" => $memeTypes
     ]);
 })->name("createMeme");
 

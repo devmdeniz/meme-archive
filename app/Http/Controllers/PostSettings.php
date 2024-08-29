@@ -13,14 +13,16 @@ class PostSettings extends Controller
         $this->request = $request;
     }
     /*
+    TODO: Connect database this options
     ! PostType{
         ? 0: Image With URL
-        ? 1: Video With URL
+        ? 1: Youtube Video With URL
         ? 2: Gif With URL
         ? 3: Just Text
         ? 4: Image With Upload
         ? 5: Video With Upload
         ? 6: Gif With Upload
+        ? 7: Just Video With URL
         }
         ! */
     public function createMeme()
@@ -39,8 +41,12 @@ class PostSettings extends Controller
          * Showing styles is different
          */
 
-        if ($number == 0 || $number == 1 || $number == 2) {
+        if ($number == 0 || $number == 2 || $number == 7) {
             $this->createMemeWithImageURL($title, $keywords, $imageURL,$number);
+        } else if($number == 1) {
+            $this->createMemeWithYoutubeVideoURL($title, $keywords, $imageURL,$number);
+        } else if($number == 3){
+            $this-> createMemeWithText($title,$keywords,$number);
         }
         return redirect()->route('feed')->with('message', 'Meme başarıyla eklendi!');
     }
@@ -55,9 +61,34 @@ class PostSettings extends Controller
         ]);
     }
 
+    private function createMemeWithYoutubeVideoURL($title,$keywords,$imageURL,$number){
+        $imageURL = parse_str(parse_url($imageURL, PHP_URL_QUERY), $queryParams);
+        $imageURL = $queryParams['v'] ?? null;
+        DB::table('memes')->insert([
+            'title' => $title,
+            'keywords' => $keywords,
+            'imageURL' => $imageURL,
+            'postType' => $number
+        ]);
+    }
+
+    private function createMemeWithText($title,$keywords,$number){
+        DB::table('memes')->insert([
+            'title' => $title,
+            'keywords' => $keywords,
+            'postType' => $number
+        ]);
+    }
+
     public static function showMeme()
     {
         $memes = DB::table("memes")->get()->reverse();
         return $memes->toArray();
+    }
+
+    public static function getMemeTypes()
+    {
+        $memeTypes = DB::table("postTypes")->get();
+        return $memeTypes->toArray();
     }
 }
