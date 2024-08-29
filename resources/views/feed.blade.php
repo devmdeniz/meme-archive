@@ -62,35 +62,47 @@
 
 <body>
     @if (session('message'))
-    <div id="message">
-        <div style="padding: 5px;">
-            <div id="alert" class="alert alert-success" role="alert">
-                <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
-                {{ session('message') }}
+        <div id="message">
+            <div style="padding: 5px;">
+                <div id="alert" class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-bs-dismiss="alert">&times;</button>
+                    {{ session('message') }}
+                </div>
             </div>
         </div>
-    </div>
     @endif
     @include('templates.header')
     <div class="container mt-5">
         <div class="row">
             @foreach ($meme as $item)
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <img src="{{ $item->imageURL }}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $item->title }}</h5>
-                            <p class="card-text">
-                                @foreach (explode(',', $item->keywords) as $keyword)
-                                    <span class="badge bg-primary">{{ $keyword }}</span>
-                                @endforeach
-                            </p>
-                            <p class="card-text"><small class="text-muted">Date</small></p>
+            @php
+            $title = $item->title;
+            $keywords = $item->keywords;
+            $imageURL = $item->imageURL;
+            $memeType = $item->postType;
+            @endphp
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            @if ($memeType == 0)
+                            <img src="{{ $imageURL }}" class="card-img-top" alt="...">
+                            @elseif ($memeType == 1)
+                            <iframe class="card-img-top" src="https://www.youtube.com/embed/{{ $imageURL }}?si=2U6ryEf8iGCt7LY1"
+                            allowfullscreen></iframe>
+                            @endif
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $title }}</h5>
+                                <p class="card-text">
+                                    @foreach (explode(',', $keywords) as $keyword)
+                                        <span class="badge bg-primary">{{ $keyword }}</span>
+                                    @endforeach
+                                </p>
+                                <p class="card-text"><small class="text-muted">Date</small></p>
+                            </div>
                         </div>
                     </div>
-                </div>
             @endforeach
         </div>
+    </div>
     </div>
 
 
@@ -99,7 +111,7 @@
             var element = document.getElementById("alert");
             element.classList.add("shake");
 
-            setTimeout(function(){
+            setTimeout(function() {
                 element.classList.remove("shake");
             }, 500);
         }

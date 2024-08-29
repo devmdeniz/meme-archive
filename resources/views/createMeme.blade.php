@@ -2,6 +2,15 @@
 <html lang="en">
 
 <head>
+    @if ($request->get('memeType'))
+        @php
+            $memeType = $request->get('memeType');
+        @endphp
+    @else
+        @php
+            $memeType = 0;
+        @endphp
+    @endif
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -74,13 +83,19 @@
                         <select
                             class="block appearance-none w-auto bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-state" name="memeType" onchange="submitForm()">
-                            <option value="0" @if ($request->get("memeType") == 0) selected @endif>Image With URL</option>
-                            <option value="1" @if ($request->get("memeType") == 1) selected @endif>Video With URL</option>
-                            <option value="2" @if ($request->get("memeType") == 2) selected @endif>Gif With URL</option>
-                            <option value="3" @if ($request->get("memeType") == 3) selected @endif>Just Text</option>
-                            <option value="4" @if ($request->get("memeType") == 4) selected @endif>Image With Upload</option>
-                            <option value="5"@if ($request->get("memeType") == 5) selected @endif>Video With Upload</option>
-                            <option value="6"@if ($request->get("memeType") == 6) selected @endif>Gif With Upload</option>
+                            <option value="0" @if ($memeType == 0) selected @endif>Image With URL
+                            </option>
+                            <option value="1" @if ($memeType == 1) selected @endif>Youtube Video With
+                                URL</option>
+                            <option value="2" @if ($memeType == 2) selected @endif>Gif With URL
+                            </option>
+                            <option value="3" @if ($memeType == 3) selected @endif>Just Text</option>
+                            <option value="4" @if ($memeType == 4) selected @endif>Image With Upload
+                            </option>
+                            <option value="5"@if ($memeType == 5) selected @endif>Video With Upload
+                            </option>
+                            <option value="6"@if ($memeType == 6) selected @endif>Gif With Upload
+                            </option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2 text-gray-700">
                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -109,8 +124,8 @@
                     <input
                         class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         id="inline-full-name" name="title" type="text">
-                    <input type="hidden" name="memeType" value="{{ $request->get("memeType",0) }}">
-                    </div>
+                    <input type="hidden" name="memeType" value="{{ $request->get('memeType', 0) }}">
+                </div>
             </div>
             <div class="md:flex md:items-center mb-6">
                 <div class="md:w-1/3">
@@ -129,7 +144,16 @@
             <div class="md:flex md:items-center mb-6">
                 <div class="md:w-1/3">
                     <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                        Meme Image
+                        Meme
+                        @if ($memeType == 0)
+                            Image
+                        @elseif($memeType == 1)
+                            Video
+                        @elseif($memeType == 2)
+                            Gif
+                        @elseif($memeType == 3)
+                            Text
+                        @endif
                     </label>
                 </div>
                 <div class="md:w-2/3">
