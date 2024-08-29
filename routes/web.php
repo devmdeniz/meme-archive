@@ -13,11 +13,14 @@ Route::get('/', function (Request $request) {
 Route::post("login", [UserSecurityController::class, 'loginUser'])->name("loginPage");
 
 Route::get("/feed", function (Request $request) {
+    $meme = PostSettings::showMeme();
     return view("feed")->with([
         "request" => $request,
-        "role" => JWTDecode::decodeJWTPerm($request)
+        "role" => JWTDecode::decodeJWTPerm($request),
+        "meme" => $meme
     ]);
 })->name("feed");
+
 
 Route::get("/logout", function (Request $request) {
     $request->session()->flush();
