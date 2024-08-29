@@ -23,7 +23,6 @@ class UserSecurityController extends Controller
                 $request->session()->put("username", $username);
                 $request->session()->put("stage", "stage2");
                 return redirect()->route("loginUser");
-
             }
 
             return redirect()->route("loginUser")->withErrors(["error" => "Invalid Username"]);
@@ -32,15 +31,15 @@ class UserSecurityController extends Controller
             $password = $request->input('password');
             $result = $this->StageTwoLogin($password, $request);
 
-            if ($result) {                
+            if ($result) {
                 $username = $request->session()->get("username");
                 $role = DB::table("users")->where("username", $username)->first()->role;
-                
+
                 $this->encryptJWT($username, $role);
-                
+
                 $request->session()->forget("username");
                 $request->session()->forget("stage");
-                
+
                 //? If Successful then redirect to:
                 return redirect()->route("feed");
             }
@@ -52,11 +51,11 @@ class UserSecurityController extends Controller
     private function stageOneLogin($username)
     {
         $user = DB::table("users")->where("username", $username)->first();
-        
+
         if ($user) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -65,13 +64,13 @@ class UserSecurityController extends Controller
     {
         $username = $request->session()->get("username");
         $user = DB::table("users")->where("username", $username)->first();
-        
+
         if ($user) {
-            if(hash("sha256", $password) == $user->password){
+            if (hash("sha256", $password) == $user->password) {
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -83,7 +82,7 @@ class UserSecurityController extends Controller
             "username" => $username,
             "role" => $role
         );
-        
+
         $jwt = JWT::encode($payload, $jwtKey, 'HS256');
         session()->put("jwt", $jwt);
     }
