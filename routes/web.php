@@ -23,6 +23,7 @@ Route::get("/logout", function (Request $request) {
     $request->session()->flush();
     return redirect()->route("loginUser");
 })->name("logout");
+
 Route::get("/CreateMeme", function (Request $request) {
     return view("createMeme")->with([
         "request" => $request,
