@@ -59,6 +59,7 @@
 
 <body>
     @include('templates.header')
+    
     <div
         class="flex flex-col w-full md:w-1/2 xl:w-2/5 2xl:w-2/5 3xl:w-1/3 mx-auto p-8 md:p-10 2xl:p-12 3xl:p-14 bg-[#ffffff] rounded-2xl shadow-xl">
         <div class="flex flex-row gap-3 pb-4">
@@ -85,9 +86,10 @@
                     </label>
                 </div>
                 <div class="md:w-2/3">
-                    <input
+                    <select`
                         class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         id="inline-full-name" name="memeType" type="text">
+                    </select>
                 </div>
             </div>
             <div class="md:flex md:items-center mb-6">
