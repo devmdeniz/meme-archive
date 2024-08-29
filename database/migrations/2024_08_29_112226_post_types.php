@@ -17,14 +17,14 @@ return new class extends Migration
         });
 
         DB::table('postTypes')->insert([
-            ['id' => 0, 'name' => 'Image With URL'],
-            ['id' => 1, 'name' => 'Youtube Video With URL'],
-            ['id' => 2, 'name' => 'Gif With URL'],
-            ['id' => 3, 'name' => 'Just Text'],
-            ['id' => 4, 'name' => 'Image With Upload'],
-            ['id' => 5, 'name' => 'Video With Upload'],
-            ['id' => 6, 'name' => 'Gif With Upload'],
-            ['id' => 7, 'name' => 'Just Video With URL'],
+            ['id' => 0, 'name' => 'Image With URL✅'],
+            ['id' => 1, 'name' => 'Youtube Video With URL✅'],
+            ['id' => 2, 'name' => 'Gif With URL✅'],
+            ['id' => 3, 'name' => 'Just Text✅'],
+            ['id' => 4, 'name' => 'Image With Upload❌'],
+            ['id' => 5, 'name' => 'Video With Upload❌'],
+            ['id' => 6, 'name' => 'Gif With Upload❌'],
+            ['id' => 7, 'name' => 'Just Video With URL✅'],
         ]);
     }
 
