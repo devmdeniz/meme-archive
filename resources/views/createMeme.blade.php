@@ -74,13 +74,13 @@
                         <select
                             class="block appearance-none w-auto bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-state" name="memeType" onchange="submitForm()">
-                            <option value="0">Image With URL</option>
-                            <option value="1">Video With URL</option>
-                            <option value="2">Gif With URL</option>
-                            <option value="3">Just Text</option>
-                            <option value="4">Image With Upload</option>
-                            <option value="5">Video With Upload</option>
-                            <option value="6">Gif With Upload</option>
+                            <option value="0" @if ($request->get("memeType") == 0) selected @endif>Image With URL</option>
+                            <option value="1" @if ($request->get("memeType") == 1) selected @endif>Video With URL</option>
+                            <option value="2" @if ($request->get("memeType") == 2) selected @endif>Gif With URL</option>
+                            <option value="3" @if ($request->get("memeType") == 3) selected @endif>Just Text</option>
+                            <option value="4" @if ($request->get("memeType") == 4) selected @endif>Image With Upload</option>
+                            <option value="5"@if ($request->get("memeType") == 5) selected @endif>Video With Upload</option>
+                            <option value="6"@if ($request->get("memeType") == 6) selected @endif>Gif With Upload</option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2 text-gray-700">
                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
