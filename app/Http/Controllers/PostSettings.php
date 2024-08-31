@@ -118,15 +118,15 @@ class PostSettings extends Controller
 
         if ($number == 0 || $number == 2 || $number == 7) {
             $this->editMemeWithImageURL($id, $title, $keywords, $imageURL,$number);
-            return redirect()->route('feed')->with('message', 'Meme başarıyla güncellendis!');
+            return redirect()->route('feed')->with('message', 'Meme başarıyla güncellendi!');
         } else if($number == 1) {
             $this->editMemeWithYoutubeVideoURL($id, $title, $keywords, $imageURL,$number);
-            return redirect()->route('feed')->with('message', 'Meme başarıyla güncellendia!');
+            return redirect()->route('feed')->with('message', 'Meme başarıyla güncellendi!');
         } else if($number == 3){
             $this-> editMemeWithText($id,$title,$keywords,$number);
-            return redirect()->route('feed')->with('message', 'Meme başarıyla güncellendbi!');
+            return redirect()->route('feed')->with('message', 'Meme başarıyla güncellendi!');
         }
-        return redirect()->route('feed')->with('message', 'Meme başarıyla olmadi!');
+        return redirect()->route('feed')->with('message', 'Meme oluşturma başarısız oldu!');
     }
 
     private function editMemeWithImageURL($id,$title,$keywords,$imageURL,$number){
