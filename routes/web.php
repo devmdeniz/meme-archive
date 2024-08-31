@@ -6,12 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\JWTDecode;
 use App\Http\Controllers\PostSettings;
 
-Route::get('/', function (Request $request) {
-    return view('login')->with(["request" => $request]);
-})->name("loginUser");
-
-Route::post("login", [UserSecurityController::class, 'loginUser'])->name("loginPage");
-
+/**
+ * ! Feed Page or Home Page
+ * */
 Route::get("/feed", function (Request $request) {
     $meme = PostSettings::showMeme();
     return view("feed")->with([
@@ -22,11 +19,29 @@ Route::get("/feed", function (Request $request) {
 })->name("feed");
 
 
+/**
+ * ! Logout Page
+ * ! Login Page
+ */
 Route::get("/logout", function (Request $request) {
     $request->session()->flush();
     return redirect()->route("loginUser");
 })->name("logout");
 
+Route::get('/', function (Request $request) {
+    return view('login')->with(["request" => $request]);
+})->name("loginUser");
+
+Route::post("login", [UserSecurityController::class, 'loginUser'])->name("loginPage");
+
+
+/** CDE PAGES
+ * ! Create Meme Pages
+ * ! Delete Meme Pages
+ * ! Edit Meme Pages
+ */
+
+// ! Create Meme Page
 Route::get("/CreateMeme", function (Request $request) {
     $memeTypes = PostSettings::getMemeTypes();
     return view("createMeme")->with([
@@ -36,4 +51,20 @@ Route::get("/CreateMeme", function (Request $request) {
     ]);
 })->name("createMeme");
 
+//! Delete Meme
+Route::get("/DeleteMeme/{id}", [PostSettings::class, 'deleteMeme'])->name("DeleteMeme");
+
+//! Edit Meme Page
+Route::get("/EditMeme",function(Request $request){
+    $meme = PostSettings::showMeme();
+    return view("editMeme")->with([
+        "request" => $request,
+        "role" => JWTDecode::decodeJWTPerm($request),
+        "meme" => $meme
+    ]);
+})->name("EditMeme");
+
+//! Edit Meme
+Route::post("/EditMeme", [PostSettings::class, 'editMeme'])->name("EditMeme");
+//! Post Meme
 Route::post("/PostMeme", [PostSettings::class, 'createMeme'])->name("PostMeme");

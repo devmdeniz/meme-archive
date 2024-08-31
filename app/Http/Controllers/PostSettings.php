@@ -91,4 +91,11 @@ class PostSettings extends Controller
         $memeTypes = DB::table("postTypes")->get();
         return $memeTypes->toArray();
     }
+
+    public function deleteMeme($id)
+    {
+        DB::table("memes")->where("id", $id)->delete();
+        return redirect()->route("feed")->with('message', 'Meme başarıyla silindi!');
+    }
+
 }

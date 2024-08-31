@@ -83,6 +83,12 @@
                 @endphp
                 <div class="col-md-4">
                     <div class="card mb-3">
+                        <button class="btn btn-warning position-absolute top-10 start-0">
+                            <a href="{{ route("EditMeme",["id"=>$item->id]) }}"><i class="fas fa-pen-square text-dark"></i></a>
+                        </button>
+                        <button class="btn btn-danger position-absolute top-0 start-0">
+                            <a href="{{ route("DeleteMeme",["id"=>$item->id]) }}"><i class="fas fa-trash text-dark"></i></a>
+                        </button>
                         @if ($memeType == 0 || $memeType == 2)
                             <img src="{{ $imageURL }}" class="card-img-top" alt="...">
                         @elseif ($memeType == 1)
@@ -108,7 +114,13 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card mb-3">
-                            {{-- <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWY3Z21rZTN3dGlrejhqcjBvdGZsZjloM3Q3NWhweTFudHQwNXhhaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IArfvsrvQt5JF4KPhR/giphy.webp" alt=""> --}}
+                            <button class="btn btn-warning position-absolute top-10 start-0">
+                                <i class="fas fa-pen-square text-dark"></i>
+                            </button>
+                            <button class="btn btn-danger position-absolute top-0 start-0">
+                                <i class="fas fa-trash text-dark"></i>
+                            </button>
+                            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWY3Z21rZTN3dGlrejhqcjBvdGZsZjloM3Q3NWhweTFudHQwNXhhaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IArfvsrvQt5JF4KPhR/giphy.webp" alt="">
 {{-- Image --}}
                             <div class="card-body">
                                 <h5 class="card-title">Taytil</h5>
