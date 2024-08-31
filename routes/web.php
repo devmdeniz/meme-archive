@@ -55,16 +55,18 @@ Route::get("/CreateMeme", function (Request $request) {
 Route::get("/DeleteMeme/{id}", [PostSettings::class, 'deleteMeme'])->name("DeleteMeme");
 
 //! Edit Meme Page
-Route::get("/EditMeme",function(Request $request){
-    $meme = PostSettings::showMeme();
+Route::get("/EditMeme/{id}",function(Request $request, $id){
+    $meme = PostSettings::showMemeById($id);
+    $memeTypes = PostSettings::showMemeTypeByPostId($id);
     return view("editMeme")->with([
         "request" => $request,
         "role" => JWTDecode::decodeJWTPerm($request),
-        "meme" => $meme
+        "meme" => $meme,
+        "memeType" => $memeTypes
     ]);
-})->name("EditMeme");
+})->name("EditMemePost");
 
 //! Edit Meme
-Route::post("/EditMeme", [PostSettings::class, 'editMeme'])->name("EditMeme");
+Route::post("/EditMeme/{id}", [PostSettings::class, 'editMeme'])->name("EditMeme");
 //! Post Meme
 Route::post("/PostMeme", [PostSettings::class, 'createMeme'])->name("PostMeme");

@@ -86,6 +86,16 @@ class PostSettings extends Controller
         return $memes->toArray();
     }
 
+    public static function showMemeById($id){
+        return DB::table("memes")->where("id", $id)->first();
+    }
+
+    public static function showMemeTypeByPostId($id){
+        $memes = DB::table("memes")->where("id",$id)->first();
+        $memeType = $memes->postType;
+        return DB::table("postTypes")->where("id",$memeType)->first();
+    }
+
     public static function getMemeTypes()
     {
         $memeTypes = DB::table("postTypes")->get();
@@ -98,4 +108,50 @@ class PostSettings extends Controller
         return redirect()->route("feed")->with('message', 'Meme başarıyla silindi!');
     }
 
+    public function editMeme()
+    {
+        $id = $this->request->route('id');
+        $title = $this->request->input("title");
+        $keywords = $this->request->input("keywords");
+        $imageURL = $this->request->input("imageURL");
+        $number = $this->request->input("memeType");
+
+        if ($number == 0 || $number == 2 || $number == 7) {
+            $this->editMemeWithImageURL($id, $title, $keywords, $imageURL,$number);
+            return redirect()->route('feed')->with('message', 'Meme başarıyla güncellendis!');
+        } else if($number == 1) {
+            $this->editMemeWithYoutubeVideoURL($id, $title, $keywords, $imageURL,$number);
+            return redirect()->route('feed')->with('message', 'Meme başarıyla güncellendia!');
+        } else if($number == 3){
+            $this-> editMemeWithText($id,$title,$keywords,$number);
+            return redirect()->route('feed')->with('message', 'Meme başarıyla güncellendbi!');
+        }
+        return redirect()->route('feed')->with('message', 'Meme başarıyla olmadi!');
+    }
+
+    private function editMemeWithImageURL($id,$title,$keywords,$imageURL,$number){
+        DB::table("memes")->where("id",$id)->update([
+            'title' => $title,
+            'keywords' => $keywords,
+            'imageURL' => $imageURL,
+            'postType' => $number
+        ]);
+    }
+    private function editMemeWithYoutubeVideoURL($id,$title,$keywords,$imageURL,$number){
+        $imageURL = parse_str(parse_url($imageURL, PHP_URL_QUERY), $queryParams);
+        $imageURL = $queryParams['v'] ?? null;
+        DB::table("memes")->where("id",$id)->update([
+            'title' => $title,
+            'keywords' => $keywords,
+            'imageURL' => $imageURL,
+            'postType' => $number
+        ]);
+    }
+    private function editMemeWithText($id,$title,$keywords,$number){
+        DB::table("memes")->where("id",$id)->update([
+            'title' => $title,
+            'keywords' => $keywords,
+            'postType' => $number
+        ]);
+    }
 }

@@ -6,14 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Feed - {{ env('WEBSITE_TITLE') }}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/css/bootstrap.css"
-        integrity="sha512-QPZjpT373lOJheWW3zuNJscevKKYE2Gdt57/oSPRtQFcZ9pM6AOuTKeVaEfqW6G/kPl9c24+S3OlaRN5OhxkgQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    @include("packages.tailwind")
+    @include("packages.bootstrap")
+    @include("packages.fontawesome")
     <style>
         #message {
             position: fixed;
@@ -84,7 +79,7 @@
                 <div class="col-md-4">
                     <div class="card mb-3">
                         <button class="btn btn-warning position-absolute top-10 start-0">
-                            <a href="{{ route("EditMeme",["id"=>$item->id]) }}"><i class="fas fa-pen-square text-dark"></i></a>
+                            <a href="{{ route("EditMemePost",["id"=>$item->id]) }}"><i class="fas fa-pen-square text-dark"></i></a>
                         </button>
                         <button class="btn btn-danger position-absolute top-0 start-0">
                             <a href="{{ route("DeleteMeme",["id"=>$item->id]) }}"><i class="fas fa-trash text-dark"></i></a>
@@ -150,9 +145,7 @@
 
             setInterval(applyShakeEffect, 5000);
         </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/js/bootstrap.js"
-            integrity="sha512-usm+JyA4pcZ0mPqWsJugUq63sbcD1jNUZhFwTDs5rb/9R8xApGaayJaY6BK3rPulS2p3adXTQXCWU68SVE4Epw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </body>
 
 </html>

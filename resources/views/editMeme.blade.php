@@ -1,20 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    @if ($request->get('memeType'))
-        @php
-            $memeTypeGet = $request->get('memeType');
-        @endphp
-    @else
-        @php
-            $memeTypeGet = 0;
-        @endphp
-    @endif
+<head
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create Meme - {{ env('WEBSITE_TITLE') }}</title>
+    <title>Edit Meme - {{ env('WEBSITE_TITLE') }}</title>
     @include("packages.tailwind")
     @include("packages.fontawesome")
     @include("packages.bootstrap")
@@ -60,6 +51,15 @@
 </head>
 
 <body>
+    @php
+    $title = $meme->title;
+    $id = $meme->id;
+    $keywords = $meme->keywords;
+    $keywordsArray = explode(",",$meme->keywords);
+    $imageURL = $meme->imageURL;
+    $postType = $meme->postType;
+    $memeTypeName = $memeType->name;
+@endphp
     @include('templates.header')
     <div
         class="flex flex-col w-full md:w-1/2 xl:w-2/5 2xl:w-2/5 3xl:w-1/3 mx-auto p-8 md:p-10 2xl:p-12 3xl:p-14 bg-[#ffffff] rounded-2xl shadow-xl">
@@ -75,14 +75,8 @@
                     <div class="relative">
                         <select
                             class="block appearance-none w-auto bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-state" name="memeType" onchange="submitForm()">
-                            @foreach ($memeTypes as $meme)
-                            @php
-                                $memeName = $meme->name;
-                                $memeId = $meme->id;
-                            @endphp
-                            <option value="{{ $memeId }}" @if ($memeTypeGet == $memeId) selected @endif>{{ $memeName }}</option>
-                            @endforeach
+                            id="grid-state" name="memeType" onchange="submitForm()" readonly>
+                            <option value="{{ $postType }}"  selected>{{ $memeTypeName }}</option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2 text-gray-700">
                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -97,9 +91,9 @@
     <div
         class="flex flex-col w-full md:w-1/2 xl:w-2/5 2xl:w-2/5 3xl:w-1/3 mx-auto p-8 md:p-10 2xl:p-12 3xl:p-14 bg-[#ffffff] rounded-2xl shadow-xl mt-14">
         <div class="flex flex-row gap-3 pb-4">
-            <h1 class="text-3xl font-bold text-[#4B5563] text-[#4B5563] my-auto">Create Meme Archive</h1>
+            <h1 class="text-3xl font-bold text-[#4B5563] text-[#4B5563] my-auto">Edit Meme Archive</h1>
         </div>
-        <form class="flex flex-col" data-bitwarden-watching="1" method="POST" action="{{ route('PostMeme') }}">
+        <form class="flex flex-col" data-bitwarden-watching="1" method="POST" action="{{ route('EditMeme',['id'=>$id]) }}">
             @csrf
             <div class="md:flex md:items-center mb-6">
                 <div class="md:w-1/3">
@@ -110,7 +104,7 @@
                 <div class="md:w-2/3">
                     <input
                         class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                        id="inline-full-name" name="title" type="text">
+                        id="inline-full-name" name="title" type="text" value="{{ $title }}">
                     <input type="hidden" name="memeType" value="{{ $request->get('memeType', 0) }}">
                 </div>
             </div>
@@ -122,22 +116,25 @@
                 </div>
                 <div class="md:w-2/3">
                     <div class="multi-search-filter"
-                        onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
+                    onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
+                    @foreach ($keywordsArray as $keyword)
+                    <div class="multi-search-item"><span>{{ $keyword }}</span><div class="fa fa-close" onclick="removeItem(this)"></div></div>
+                    @endforeach
                         <input type="text" onkeyup="multiSearchKeyup(this)">
-                        <input type="hidden" name="keywords" value="">
+                        <input type="hidden" name="keywords" value="{{ $keywords }}">
                     </div>
                 </div>
             </div>
             <div class="md:flex md:items-center mb-6">
                 <div class="md:w-1/3">
-                    @if ($memeTypeGet != 3)
+                    @if ($postType != 3)
                     <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
                         Meme
-                        @if ($memeTypeGet == 0)
+                        @if ($postType == 0)
                             Image
-                        @elseif($memeTypeGet == 1 || $memeTypeGet == 7)
+                        @elseif($postType == 1 || $postType == 7)
                             Video
-                        @elseif($memeTypeGet == 2)
+                        @elseif($postType == 2)
                             Gif
                         @endif
                     </label>
@@ -146,13 +143,13 @@
                     <input
                         class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         id="inline-full-name" type="text" name="imageURL"
-                        value="https://i.kym-cdn.com/entries/icons/mobile/000/029/268/cover5.jpg">
+                        value="{{ $imageURL }}">
                             @endif
                 </div>
             </div>
             <button type="submit"
                 class="w-full text-[#FFFFFF] bg-[#198754] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-6">
-                Add Meme
+                Edit Meme
             </button>
         </form>
     </div>
@@ -164,8 +161,8 @@
         }
     </script>
     <script>
-        const keywords = [];
-
+        const keywords = @json($keywordsArray);
+        console.log(keywords);
         function multiSearchKeyup(inputElement) {
             if (event.keyCode === 27) {
                 const newItem = createFilterItem(inputElement.value);
