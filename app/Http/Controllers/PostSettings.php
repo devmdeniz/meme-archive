@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\JWTDecode;
 
 class PostSettings extends Controller
 {
@@ -34,7 +35,7 @@ class PostSettings extends Controller
         $title = $this->request->input("title");
         $keywords = $this->request->input("keywords");
         $imageURL = $this->request->input("imageURL");
-
+        $userid = JWTDecode::decodeJWTforUserId($this->request);
         /**
          * Upload Image,Video,GIF with using URL
          * Numbers must be different but saving style is same
@@ -42,41 +43,44 @@ class PostSettings extends Controller
          */
 
         if ($number == 0 || $number == 2 || $number == 7) {
-            $this->createMemeWithImageURL($title, $keywords, $imageURL,$number);
+            $this->createMemeWithImageURL($title, $keywords, $imageURL,$number,$userid);
         } else if($number == 1) {
-            $this->createMemeWithYoutubeVideoURL($title, $keywords, $imageURL,$number);
+            $this->createMemeWithYoutubeVideoURL($title, $keywords, $imageURL,$number,$userid);
         } else if($number == 3){
-            $this-> createMemeWithText($title,$keywords,$number);
+            $this-> createMemeWithText($title,$keywords,$number,$userid);
         }
         return redirect()->route('feed')->with('message', 'Meme başarıyla eklendi!');
     }
 
-    private function createMemeWithImageURL($title, $keywords, $imageURL,$number)
+    private function createMemeWithImageURL($title, $keywords, $imageURL,$number,$userid)
     {
         DB::table('memes')->insert([
             'title' => $title,
             'keywords' => $keywords,
             'imageURL' => $imageURL,
-            'postType' => $number
+            'postType' => $number,
+            'userID' => $userid
         ]);
     }
 
-    private function createMemeWithYoutubeVideoURL($title,$keywords,$imageURL,$number){
+    private function createMemeWithYoutubeVideoURL($title,$keywords,$imageURL,$number,$userid){
         $imageURL = parse_str(parse_url($imageURL, PHP_URL_QUERY), $queryParams);
         $imageURL = $queryParams['v'] ?? null;
         DB::table('memes')->insert([
             'title' => $title,
             'keywords' => $keywords,
             'imageURL' => $imageURL,
-            'postType' => $number
+            'postType' => $number,
+            'userID' => $userid
         ]);
     }
 
-    private function createMemeWithText($title,$keywords,$number){
+    private function createMemeWithText($title,$keywords,$number,$userid){
         DB::table('memes')->insert([
             'title' => $title,
             'keywords' => $keywords,
-            'postType' => $number
+            'postType' => $number,
+            'userID' => $userid
         ]);
     }
 

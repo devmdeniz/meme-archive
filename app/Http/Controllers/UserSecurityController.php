@@ -87,4 +87,10 @@ class UserSecurityController extends Controller
         $jwt = JWT::encode($payload, $jwtKey, 'HS256');
         session()->put("jwt", $jwt);
     }
+
+    public static function usernameToId($username)
+    {
+        $user = DB::table("users")->where("username", $username)->first();
+        return $user->id;
+    }
 }
