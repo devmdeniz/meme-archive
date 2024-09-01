@@ -11,13 +11,23 @@ use App\Http\Controllers\PostSettings;
  * */
 Route::get("/feed", function (Request $request) {
     $meme = PostSettings::showMeme();
+    $sessionUserId = JWTDecode::decodeJWTforUserId($request);
     return view("feed")->with([
         "request" => $request,
         "role" => JWTDecode::decodeJWTPerm($request),
-        "meme" => $meme
+        "meme" => $meme,
+        "sessionid" => $sessionUserId
     ]);
 })->name("feed");
 
+Route::get("Profile/Memes", function (Request $request) {
+    $myMemes = PostSettings::showMemeByUser($request);
+    return view("myMemes")->with([
+        "request" => $request,
+        "role" => JWTDecode::decodeJWTPerm($request),
+        "myMemes" => $myMemes
+    ]);
+})->name("myMemes");
 
 /**
  * ! Logout Page

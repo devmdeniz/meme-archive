@@ -69,24 +69,21 @@
     @include('templates.header')
     <div class="container mt-5">
         <div class="row">
-            @foreach ($meme as $item)
+            @foreach ($myMemes as $item)
                 @php
                     $title = $item->title;
                     $keywords = $item->keywords;
                     $imageURL = $item->imageURL;
                     $memeType = $item->postType;
-                    $userId = $item->userID;
                 @endphp
                 <div class="col-md-4">
                     <div class="card mb-3">
-                        @if ($userId == $sessionid)
                         <button class="btn btn-warning position-absolute top-10 start-0">
                             <a href="{{ route("EditMemePost",["id"=>$item->id]) }}"><i class="fas fa-pen-square text-dark"></i></a>
                         </button>
                         <button class="btn btn-danger position-absolute top-0 start-0">
                             <a href="{{ route("DeleteMeme",["id"=>$item->id]) }}"><i class="fas fa-trash text-dark"></i></a>
                         </button>
-                        @endif
                         @if ($memeType == 0 || $memeType == 2)
                             <img src="{{ $imageURL }}" class="card-img-top" alt="...">
                         @elseif ($memeType == 1)

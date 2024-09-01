@@ -158,4 +158,9 @@ class PostSettings extends Controller
             'postType' => $number
         ]);
     }
+    public static function showMemeByUser(Request $request){
+        $findUser = JWTDecode::decodeJWTforUserId($request);
+        $memes = DB::table("memes")->where("userID",$findUser)->get()->reverse();
+        return $memes->toArray();
+    }
 }
