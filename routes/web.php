@@ -80,3 +80,12 @@ Route::get("/EditMeme/{id}",function(Request $request, $id){
 Route::post("/EditMeme/{id}", [PostSettings::class, 'editMeme'])->name("EditMeme");
 //! Post Meme
 Route::post("/PostMeme", [PostSettings::class, 'createMeme'])->name("PostMeme");
+
+Route::get("/searchMeme", function(Request $request){
+    return view("searchMeme")->with([
+        "request" => $request,
+        "role" => JWTDecode::decodeJWTPerm($request),
+    ]);
+})->name("searchMeme");
+
+Route::post("/searchMemePost", [PostSettings::class, 'searchMeme'])->name("searchMemePost");

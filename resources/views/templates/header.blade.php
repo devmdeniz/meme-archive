@@ -5,7 +5,7 @@
         {{-- @if ($role == 1) --}}
             <a href="{{ route("createMeme") }}" class="btn btn-success"><i class="fa-solid fa-plus"></i> Add Meme</a>
         {{-- @endif --}}
-        <a href="" class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i> Search Meme</a>
+        <a href="{{  route("searchMeme") }}" class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i> Search Meme</a>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                 data-bs-toggle="dropdown" aria-expanded="false">

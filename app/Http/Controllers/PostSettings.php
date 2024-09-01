@@ -163,4 +163,16 @@ class PostSettings extends Controller
         $memes = DB::table("memes")->where("userID",$findUser)->get()->reverse();
         return $memes->toArray();
     }
+
+    public static function searchMeme(Request $request){
+        $search = $request->input("search");
+        // keywords and title
+        $memes = DB::table("memes")->where("keywords","like","%$search%")->orWhere("title","like","%$search%")->get();
+        return view("searchMeme")->with([
+            "request" => $request,
+            "role" => JWTDecode::decodeJWTPerm($request),
+            "memes" => $memes,
+            "sessionid" => JWTDecode::decodeJWTforUserId($request)
+        ]);
+    }
 }
