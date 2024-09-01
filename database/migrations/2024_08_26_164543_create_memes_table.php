@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('keywords');
             $table->string('imageURL')->nullable();
             $table->integer("postType")->default(0);
+            $table->integer("userID")->default(0);
             $table->timestamps();
         });
     }
