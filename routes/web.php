@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\JWTDecode;
 use App\Http\Controllers\PostSettings;
 
+Route::middleware(['checkSession'])->group(function () {
 /**
  * ! Feed Page or Home Page
  * */
@@ -29,6 +30,7 @@ Route::get("Profile/Memes", function (Request $request) {
     ]);
 })->name("myMemes");
 
+});
 /**
  * ! Logout Page
  * ! Login Page
