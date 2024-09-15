@@ -63,15 +63,26 @@ class PostSettings extends Controller
         ]);
     }
 
-    private function createMemeWithYoutubeVideoURL($title,$keywords,$imageURL,$number,$userid){
-        $imageURL = parse_str(parse_url($imageURL, PHP_URL_QUERY), $queryParams);
-        $imageURL = $queryParams['v'] ?? null;
+    private function createMemeWithYoutubeVideoURL($title,$keywords,String $imageURL,$number,$userid){
+        echo $imageURL;
+        echo "<br>";
+        if(isset($queryParams["v"])){
+            $imageURL = $queryParams["v"];
+        } else {
+            $parts = explode("?",str($imageURL));
+            $partsZero = $parts[0];
+            $afterSlash = parse_url($partsZero, PHP_URL_PATH);
+            $timeURL = parse_url($imageURL, PHP_URL_QUERY);
+            $timeURL = explode("t=",$timeURL);
+            $imageURL = ltrim($afterSlash, '/');
+        }
         DB::table('memes')->insert([
             'title' => $title,
             'keywords' => $keywords,
             'imageURL' => $imageURL,
             'postType' => $number,
-            'userID' => $userid
+            'userID' => $userid,
+            'time' => $timeURL[1] ?? 0
         ]);
     }
 
