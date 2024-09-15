@@ -75,6 +75,7 @@
                     $keywords = $item->keywords;
                     $imageURL = $item->imageURL;
                     $memeType = $item->postType;
+                    $time = $item->time;
                 @endphp
                 <div class="col-md-4">
                     <div class="card mb-3">
@@ -88,7 +89,7 @@
                             <img src="{{ $imageURL }}" class="card-img-top" alt="...">
                         @elseif ($memeType == 1)
                             <iframe class="card-img-top"
-                                src="https://www.youtube.com/embed/{{ $imageURL }}?si=2U6ryEf8iGCt7LY1"
+                                src="https://www.youtube.com/embed/{{ $imageURL }}?si=2U6ryEf8iGCt7LY1&t={{ $time }}"
                                 allowfullscreen></iframe>
                         @elseif($memeType == 7)
                         <video src="{{ $imageURL }}" class="card-img-top" autoplay muted loop></video>
